@@ -1,0 +1,28 @@
+{
+  "name": "interviewsimulator",
+  "version": "1.0.0",
+  "description": "A chatbot that simulates a job interview and rates the candidates' (end users') responses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saymaakhan/interviewSimulator.git"
+  },
+  "author": "Shrish Mohapatra and Sayma Khan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saymaakhan/interviewSimulator/issues"
+  },
+  "homepage": "https://github.com/saymaakhan/interviewSimulator#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.2",
+    "nodemon": "^2.0.4"
+  }
+}
