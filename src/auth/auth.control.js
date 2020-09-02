@@ -2,6 +2,30 @@ const User = require('./auth.model')
 const bcrypt = require('bcrypt')
 const keys = require('../../config/keys')
 
+const token = require('../middleware/token')
+
+/*
+
+auth token
+1. login/signup (frontend form)
+    -> request to server
+    -> server query database, verify username & password are correct
+    -> server sends an encyrpted token
+        -> token has the user ID, rndm garbage, expiry date
+
+session
+login/signup
+    -> server saves user data (current logged in user) to session storage
+
+
+request from client
+goes to server
+<middleware>
+server takes request
+process
+server returns response
+*/
+
 
 module.exports = {
     signup: async (req, res) => {
@@ -19,7 +43,7 @@ module.exports = {
         user = await new User(req.body)
         user.save()
 
-        res.send(`Registered ${req.body.email}.`)
+        res.json({message: `Registered ${req.body.email}.`, token: token.createToken(user)})
     },
 
     login: async (req, res) => {
@@ -38,6 +62,6 @@ module.exports = {
             return res.send("Sorry, the password you entered is incorrect.")
         }
 
-        res.send("Logged in Successfully")
+        res.json({message: "Logged in Successfully", token: token.createToken(user)})
     }
 }
