@@ -2,14 +2,16 @@ import React from 'react';
 import 'antd/dist/antd.less'
 import './App.less';
 
-import { Button } from 'antd'
+import AppRouter from './routers/AppRouter'
+import {BrowserRouter} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <p>hello world</p>
-      <Button type="primary">Click me</Button>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <AppRouter/>
+      </div>
+    </BrowserRouter>
   );
 }
 
