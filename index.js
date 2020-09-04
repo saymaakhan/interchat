@@ -1,6 +1,7 @@
 // Modules
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 // Routers
 const authRouter = require('./src/auth/auth.routes')
@@ -12,6 +13,9 @@ const database = require('./config/database')
 
 const app = express()
 const port = 5000
+
+app.use(cors())
+app.options('*', cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true }))

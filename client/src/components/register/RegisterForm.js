@@ -1,5 +1,9 @@
 import React from 'react'
-import {Form, Input, Button, Checkbox, Select} from 'antd'
+
+import { connect } from 'react-redux'
+import { authenticate } from "../../store/actions/auth.actions"
+
+import {Form, Input, Button, Checkbox, Select, message} from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -7,18 +11,25 @@ const { Option } = Select;
 class RegisterForm extends React.Component {
     formRef = React.createRef()
 
-    onFinish = () => {
+    onFinish = async (type) => {
         let formData;
 
         if(this.formRef.current) {
             formData = this.formRef.current.getFieldsValue()
+            await this.props.authenticate(formData, type)
+
+            if(this.props.message !== '') {
+                message.info(this.props.message)
+            }
+
+            console.log(this.props.isAuth)
         }
 
         console.log(formData)
     }
 
     renderLogin = () => (
-        <Form ref={this.formRef} onFinish={this.onFinish}>      
+        <Form ref={this.formRef} onFinish={() => {this.onFinish('login')}}>      
             <Form.Item
                 name="email"
                 rules={[
@@ -61,7 +72,7 @@ class RegisterForm extends React.Component {
     )
 
     renderSignup = () => (
-        <Form ref={this.formRef} onFinish={this.onFinish}>
+        <Form ref={this.formRef} onFinish={() => {this.onFinish('signup')}}> 
             <Form.Item
                 name="email"
                 rules={[
@@ -82,9 +93,19 @@ class RegisterForm extends React.Component {
             </Form.Item>
 
             <Form.Item
-                name="confirm_password"
+                name="confirm_password"                
+                dependencies={['password']}
                 rules={[
                     { required: true, message: "Please enter password." },
+                    ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                            if(!value || getFieldValue('password') === value) {
+                                return Promise.resolve()
+                            }
+
+                            return Promise.reject('The two passwords do not match.')
+                        }
+                    })
                 ]}
             >
                 <Input id='confirm_password' prefix={<LockOutlined/>} autoComplete="new-password" placeholder="Confirm Password" type="password"/>
@@ -123,4 +144,18 @@ class RegisterForm extends React.Component {
 
 }
 
-export default RegisterForm
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.isAuth,
+        token: state.token,
+        message: state.message
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        authenticate: (user, type) => dispatch(authenticate(user, type))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)

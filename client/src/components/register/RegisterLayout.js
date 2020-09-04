@@ -14,7 +14,7 @@ class RegisterLayout extends React.Component {
                     align="middle"
                     justify="center"
                 >
-                    <Col span={12}>
+                    <Col md={12} xs={24}>
                         <div className="register-card">
                             <div style={{width: '100%'}}>
                                 <h1 className="register-title">interbot</h1>
@@ -35,7 +35,7 @@ class RegisterLayout extends React.Component {
                         </div>
                     </Col>
 
-                    <Col span={12}/>
+                    <Col md={12} xs={0}/>
                     
                 </Row>
             </div>
