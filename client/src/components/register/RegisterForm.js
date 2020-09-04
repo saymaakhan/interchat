@@ -5,9 +5,20 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 class RegisterForm extends React.Component {
+    formRef = React.createRef()
+
+    onFinish = () => {
+        let formData;
+
+        if(this.formRef.current) {
+            formData = this.formRef.current.getFieldsValue()
+        }
+
+        console.log(formData)
+    }
 
     renderLogin = () => (
-        <Form>
+        <Form ref={this.formRef} onFinish={this.onFinish}>      
             <Form.Item
                 name="email"
                 rules={[
@@ -15,7 +26,7 @@ class RegisterForm extends React.Component {
                     { type: 'email', message: 'Please enter valid email format.' }
                 ]}
             >
-                <Input id='email' prefix={<UserOutlined/>} placeholder="Email"/>
+                <Input id='email' prefix={<UserOutlined/>} placeholder="Email" autoComplete="email"/>
             </Form.Item>
 
             <Form.Item
@@ -24,7 +35,7 @@ class RegisterForm extends React.Component {
                     { required: true, message: "Please enter password." },
                 ]}
             >
-                <Input id='password' prefix={<LockOutlined/>} placeholder="Password" type="password"/>
+                <Input id='password' prefix={<LockOutlined/>} autoComplete="new-password" placeholder="Password" type="password"/>
             </Form.Item>
             
             <Form.Item>
@@ -50,7 +61,7 @@ class RegisterForm extends React.Component {
     )
 
     renderSignup = () => (
-        <Form>
+        <Form ref={this.formRef} onFinish={this.onFinish}>
             <Form.Item
                 name="email"
                 rules={[
@@ -58,7 +69,7 @@ class RegisterForm extends React.Component {
                     { type: 'email', message: 'Please enter valid email format.' }
                 ]}
             >
-                <Input id='email' prefix={<UserOutlined/>} placeholder="Email"/>
+                <Input id='email' prefix={<UserOutlined/>} placeholder="Email" autoComplete="email"/>
             </Form.Item>
 
             <Form.Item
@@ -67,20 +78,20 @@ class RegisterForm extends React.Component {
                     { required: true, message: "Please enter password." },
                 ]}
             >
-                <Input id='password' prefix={<LockOutlined/>} placeholder="Password" type="password"/>
+                <Input id='password' prefix={<LockOutlined/>} autoComplete="new-password" placeholder="Password" type="password"/>
             </Form.Item>
 
             <Form.Item
-                name="confirm-password"
+                name="confirm_password"
                 rules={[
                     { required: true, message: "Please enter password." },
                 ]}
             >
-                <Input id='confirm-password' prefix={<LockOutlined/>} placeholder="Confirm Password" type="password"/>
+                <Input id='confirm_password' prefix={<LockOutlined/>} autoComplete="new-password" placeholder="Confirm Password" type="password"/>
             </Form.Item>
 
             <Form.Item
-                name="profile-type"
+                name="profile_type"
             >
                 <Select placeholder="Business or Candidate">
                     <Option value="business">Business</Option>
