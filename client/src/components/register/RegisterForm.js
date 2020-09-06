@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { authenticate } from "../../store/actions/auth.actions"
 
@@ -135,6 +136,8 @@ class RegisterForm extends React.Component {
 
 
     render() {
+        if(this.props.isAuth) return <Redirect to='/home'/>
+
         if(this.props.formType === "login") {
             return this.renderLogin()
         } else {
@@ -146,9 +149,9 @@ class RegisterForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.isAuth,
-        token: state.token,
-        message: state.message
+        isAuth: state.auth.isAuth,
+        token: state.auth.token,
+        message: state.auth.message
     }
 }
 

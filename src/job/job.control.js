@@ -2,10 +2,10 @@ const Job = require('./job.model')
 const { getUserFromToken } = require('../middleware/token')
 
 module.exports = {
-    create_job: async (req, res) => {
-        const user = getUserFromToken(req.headers.token)
-
+    create_job: async (req, res) => {       
         try {
+            const user = getUserFromToken(req.headers.token)
+            
             let job = await new Job({
                 ...req.body,
                 userID: user._id
