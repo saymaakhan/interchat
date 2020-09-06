@@ -1,19 +1,32 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {get_jobs} from '../../store/actions/core.actions'
+import {get_jobs, select_job} from '../../store/actions/core.actions'
 
 const { Sider } = Layout
 
 class Jobbar extends React.Component {
 
     componentDidMount = () => {
-        this.props.get_jobs()
+        this.props.get_jobs(this.props.token, this.props.userID, this.props.profile_type)
+    }
+
+    selectJob = (job) => {
+        this.props.select_job(job)
+    }
+
+    getCardClass = (job) => {
+        if(!this.props.selectedJob) return 'job-card'
+
+        if(job._id === this.props.selectedJob._id) {
+            return "job-card job-card-selected"
+        } else {
+            return "job-card"
+        }
     }
 
     renderJobCard = (job, index) => (
-        <div className="job-card" id={`job-${index}`}>
+        <div className={this.getCardClass(job)} id={`job-${index}`} onClick={() => {this.selectJob(job)}}>
             <div className="job-card-header">
                 <p className="job-position">{job.title}</p>
                 <div className="job-header-details">                                    
@@ -69,13 +82,18 @@ class Jobbar extends React.Component {
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        jobs: state.core.jobs
+        userID: state.auth.userID,
+        profile_type: state.auth.profile_type,
+
+        jobs: state.core.jobs,
+        selectedJob: state.core.selectedJob,        
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        get_jobs: (token) => dispatch(get_jobs(token))
+        get_jobs: (token, userID, profile_type) => dispatch(get_jobs(token, userID, profile_type)),
+        select_job: (job) => dispatch(select_job(job))
     }
 }
 

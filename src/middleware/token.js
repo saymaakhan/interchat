@@ -9,7 +9,8 @@ module.exports = {
                 date: Date.now()
             },
             keys.apiKey,
-            {expiresIn: "1h"}
+            //{expiresIn: "1h"}
+            {}
         )
     ),
 

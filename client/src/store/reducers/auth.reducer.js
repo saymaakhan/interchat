@@ -2,6 +2,7 @@ const initState = {
     isAuth: false,
     userID: '',
     token: '',
+    profile_type: '',
     message: '',
 }
 
@@ -13,6 +14,7 @@ const authReducer = (state = initState, action) => {
                 isAuth: true,
                 userID: action.userID,
                 token: action.token,
+                profile_type: action.profile_type,
                 message: ''
             }
         
@@ -22,6 +24,7 @@ const authReducer = (state = initState, action) => {
                 isAuth: false,
                 userID: '',
                 token: '',
+                profile_type: '',
                 message: action.message
             }
         

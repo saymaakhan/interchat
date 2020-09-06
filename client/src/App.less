@@ -107,6 +107,7 @@
     background-color: #fff;
 }
 
+.job-card-selected,
 .job-card:hover {
     background-color: #b59bf2;
     -webkit-transition: background-color 200ms linear;
@@ -141,4 +142,49 @@
 
 .job-tag-text {
     margin-bottom: 0;
+}
+
+/* Inner Layout */
+.inner-layout {
+    background: #fff;
+    padding: 24px 48px;
+}
+
+.ant-modal {
+    width: 60% !important;
+    min-width: 520px;
+}
+
+/* Job View */
+.job-view-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.job-view-title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.job-view-company {
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.job-view-location {
+    line-height: 1;
+}
+
+.job-view-skills {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.job-view-skill {
+    margin: 12px;
+    background-color: #b59bf2;
+    padding: 8px;
+    border-radius: 12px;
 }

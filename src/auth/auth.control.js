@@ -20,7 +20,12 @@ module.exports = {
         user = await new User(req.body)
         user.save()
 
-        res.json({message: `Registered ${req.body.email}.`, token: token.createToken(user), userID: user.id})
+        res.json({
+            message: `Registered ${req.body.email}`,
+            token: token.createToken(user),
+            userID: user.id,
+            profile_type: user.profile_type
+        })
     },
 
     login: async (req, res) => {
@@ -39,6 +44,11 @@ module.exports = {
             return res.send("Sorry, the password you entered is incorrect.")
         }
 
-        res.json({message: "Logged in Successfully", token: token.createToken(user), userID: user.id})
+        res.json({
+            message: "Logged in Successfully",
+            token: token.createToken(user),
+            userID: user.id,
+            profile_type: user.profile_type
+        })
     }
 }
