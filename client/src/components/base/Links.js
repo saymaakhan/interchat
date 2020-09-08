@@ -1,7 +1,9 @@
 import React from 'react'
 import { Menu } from 'antd'
+
 import { connect } from 'react-redux'
-import {create_job, get_jobs} from '../../store/actions/core.actions'
+import { create_job, get_jobs } from '../../store/actions/core.actions'
+import { signout } from '../../store/actions/auth.actions'
 
 import {
     HomeOutlined,
@@ -20,6 +22,7 @@ class Links extends React.Component {
         showModal: false,
     }
 
+    // Modal methods
     addJob = () => {
         this.setState({showModal: true})
     }
@@ -29,17 +32,36 @@ class Links extends React.Component {
 
         if(this.formRef.current) {
             formData = this.formRef.current.getFieldsValue()
+            this.formRef.current.resetFields()
         }
 
         formData.skills = tags
         await this.props.create_job(this.props.token, formData)
         this.props.get_jobs(this.props.token, this.props.userID, this.props.profile_type)
 
-        this.setState({showModal: false})
+        this.setState({showModal: false})        
     }
 
     handleCancel = () => {
         this.setState({showModal: false})
+    }
+
+
+    // Render methods
+    renderHome = () => {
+        if(this.props.profile_type === 'business') {
+            return (
+                <SubMenu key='home' title={<span><HomeOutlined/><span>Home</span></span>}>
+                    <Menu.Item key='add-job' onClick={this.addJob}>Add Job</Menu.Item>
+                </SubMenu>
+            )
+        } else {
+            return (
+                <Menu.Item key='home' icon={<HomeOutlined/>}>
+                    Home
+                </Menu.Item>
+            )
+        }
     }
 
     render() {
@@ -51,13 +73,12 @@ class Links extends React.Component {
                     defaultOpenKeys={['home']}
                     defaultSelectedKeys={['home']}
                 >
-                    <SubMenu key='home' title={<span><HomeOutlined/><span>Home</span></span>}>
-                        <Menu.Item key='add-job' onClick={this.addJob}>Add Job</Menu.Item>
-                    </SubMenu>
+                    {this.renderHome()}
+
                     <Menu.Item key='about' icon={<InfoCircleOutlined/>}>
                         About
                     </Menu.Item>
-                    <Menu.Item key='logout' icon={<LogoutOutlined/>}>
+                    <Menu.Item key='logout' icon={<LogoutOutlined/>} onClick={this.props.signout}>
                         Logout
                     </Menu.Item>
                 </Menu>
@@ -85,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         get_jobs: (token, userID, profile_type) => dispatch(get_jobs(token, userID, profile_type)),
         create_job: (token, job) => dispatch(create_job(token, job)),
+        signout: () => dispatch(signout())
     }
 }
 

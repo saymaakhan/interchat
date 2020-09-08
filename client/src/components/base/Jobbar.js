@@ -47,7 +47,7 @@ class Jobbar extends React.Component {
                 </div>
                 <div className="job-tag">
                     <p className="job-tag-text">
-                        {job.location}
+                        {job.skills[0]}
                     </p>
                 </div>
             </div>

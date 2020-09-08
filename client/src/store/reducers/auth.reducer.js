@@ -28,6 +28,9 @@ const authReducer = (state = initState, action) => {
                 message: action.message
             }
         
+        case 'SIGN_OUT':
+            return initState
+        
         default:
             return state
     }

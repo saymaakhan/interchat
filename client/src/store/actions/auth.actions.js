@@ -39,3 +39,10 @@ export const local_authenticate = () => {
         }
     }
 }
+
+export const signout = () => {
+    return (dispatch) => {
+        localStorage.clear()
+        dispatch({type: 'SIGN_OUT'})
+    }
+}

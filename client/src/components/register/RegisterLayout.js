@@ -17,7 +17,7 @@ class RegisterLayout extends React.Component {
                     <Col md={12} xs={24}>
                         <div className="register-card">
                             <div style={{width: '100%'}}>
-                                <h1 className="register-title">interchat</h1>
+                                <h1 className="register-title">InterChat</h1>
 
                                 <Tabs>
                                     <TabPane tab="Login" key="login">

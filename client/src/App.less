@@ -146,8 +146,31 @@
 
 /* Inner Layout */
 .inner-layout {
+    overflow: auto;
     background: #fff;
     padding: 24px 48px;
+    height: 100vh;
+}
+
+/* inner-layout scrollbar */
+.inner-layout::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.inner-layout::-webkit-scrollbar-track {
+    background: #eee;
+    visibility: hidden;
+}
+
+.inner-layout::-webkit-scrollbar-thumb {
+    background: #ddd;
+    visibility: hidden;
+}
+
+.inner-layout:hover::-webkit-scrollbar-thumb,
+.inner-layout:hover::-webkit-scrollbar-track {
+    visibility: visible
 }
 
 .ant-modal {
@@ -183,8 +206,17 @@
 }
 
 .job-view-skill {
-    margin: 12px;
+    margin: 0 12px 12px 0;
     background-color: #b59bf2;
     padding: 8px;
     border-radius: 12px;
+} 
+
+/* Interview */
+.input-body {
+    display: flex; 
+}
+
+.input-response {
+    margin-right: 8px;
 }

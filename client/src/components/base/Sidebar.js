@@ -15,9 +15,9 @@ class Sidebar extends React.Component {
 
     renderLogo = () => {
         if(this.state.collapsed) {
-            return <p className="logo-title">ai</p>
+            return <p className="logo-title">IC</p>
         } else {
-            return <p className="logo-title">interchat</p>
+            return <p className="logo-title">InterChat</p>
         }
     }
 
